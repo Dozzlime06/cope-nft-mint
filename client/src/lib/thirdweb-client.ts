@@ -1,4 +1,4 @@
-import { getContract, prepareContractCall, resolveMethod, sendTransaction } from "thirdweb";
+import { getContract, prepareContractCall, sendTransaction } from "thirdweb";
 import { client } from "@/lib/client";
 import { debugLog } from "./debug-logger";
 
@@ -39,7 +39,12 @@ export async function mintNFT(account: any, quantity: number = 1) {
         BigInt(quantity),
         "0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee", // ETH
         pricePerTokenWei,
-        [[], BigInt("0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"), BigInt(0), "0x0000000000000000000000000000000000000000"],
+        [
+          [], 
+          BigInt("0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"), 
+          BigInt(0), 
+          "0x0000000000000000000000000000000000000000"
+        ],
         "0x",
       ],
       value: totalValueWei,
@@ -59,7 +64,7 @@ export async function mintNFT(account: any, quantity: number = 1) {
       success: true,
     };
   } catch (error: any) {
-    debugLog.error("ERROR in mintNFT", {
+    debugLog.error("❌ ERROR in mintNFT", {
       message: error?.message,
       name: error?.name,
       code: error?.code,
