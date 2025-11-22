@@ -12,15 +12,40 @@ export function Header() {
           </div>
           <h1 className="text-xl font-black text-white">COPE</h1>
         </div>
-
-        {/* Connect Button */}
-        <div className="w-48">
+        
+        {/* Connect Button - Styled */}
+        <div className="connect-button-wrapper">
           <WalletConnect
             onConnect={(address) => console.log('Connected:', address)}
             onDisconnect={() => console.log('Disconnected')}
           />
         </div>
       </div>
+      
+      {/* Global styles for ConnectButton */}
+      <style jsx global>{`
+        .connect-button-wrapper button {
+          background: rgb(124 58 237) !important;
+          color: white !important;
+          border: none !important;
+          padding: 0.75rem 1.5rem !important;
+          border-radius: 0.5rem !important;
+          font-weight: 600 !important;
+          font-size: 1rem !important;
+          min-width: 160px !important;
+          height: 48px !important;
+          transition: all 0.2s ease !important;
+        }
+        
+        .connect-button-wrapper button:hover {
+          background: rgb(109 40 217) !important;
+          transform: translateY(-1px);
+        }
+        
+        .connect-button-wrapper button:active {
+          transform: translateY(0);
+        }
+      `}</style>
     </header>
   );
 }
