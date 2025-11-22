@@ -1,18 +1,37 @@
 import { getContract, prepareContractCall, sendTransaction } from "thirdweb";
+import { base } from "thirdweb/chains";
 import { client } from "@/lib/client";
 import { debugLog } from "./debug-logger";
 
 export const CONTRACT_ADDRESS = "0xC69D12003f1f1c14874445818330066877A5A49e";
-const CHAIN_ID = 8453; // Base
+
+// Export chain for WalletConnect component
+export const chain = base;
 
 export async function mintNFT(account: any, quantity: number = 1) {
   debugLog.log("🚀 mintNFT called", { address: account?.address, quantity });
   
+  if (!account) {
+    debugLog.error("❌ No account provided");
+    throw new Error("Account is required");
+  }
+  
+  if (!account.address) {
+    debugLog.error("❌ Account has no address");
+    throw new Error("Account address is required");
+  }
+  
   try {
     debugLog.log("📊 Fetching contract stats...");
     const statsRes = await fetch("/api/contract/stats");
+    
+    if (!statsRes.ok) {
+      debugLog.error("❌ Failed to fetch stats", statsRes.status);
+      throw new Error("Failed to fetch contract stats");
+    }
+    
     const stats = await statsRes.json();
-    debugLog.log("💰 Price per NFT:", stats.price);
+    debugLog.log("💰 Stats received:", stats);
     
     const pricePerNFT = stats.price || 0.0005;
     const totalPrice = pricePerNFT * quantity;
@@ -22,13 +41,16 @@ export async function mintNFT(account: any, quantity: number = 1) {
     const contract = getContract({
       client,
       address: CONTRACT_ADDRESS,
-      chain: { id: CHAIN_ID },
+      chain: base,
     });
-    debugLog.log("✅ Contract created");
+    debugLog.log("✅ Contract created:", CONTRACT_ADDRESS);
     
     debugLog.log("📝 Preparing claim transaction...");
     const pricePerTokenWei = BigInt(Math.floor(pricePerNFT * 1e18));
     const totalValueWei = pricePerTokenWei * BigInt(quantity);
+    
+    debugLog.log(`💎 Price: ${pricePerTokenWei.toString()} wei per token`);
+    debugLog.log(`💎 Total: ${totalValueWei.toString()} wei`);
     
     const tx = prepareContractCall({
       contract,
@@ -49,16 +71,16 @@ export async function mintNFT(account: any, quantity: number = 1) {
       ],
       value: totalValueWei,
     });
-    debugLog.log("✅ Transaction prepared");
+    debugLog.log("✅ Transaction prepared, ready to send");
     
-    debugLog.log("📤 Sending transaction to wallet...");
+    debugLog.log("📤 Sending transaction to wallet... (wallet popup should appear now)");
     const receipt = await sendTransaction({
       transaction: tx,
       account,
     });
-    debugLog.log("✅ Transaction hash:", receipt.transactionHash);
     
-    debugLog.log("⏳ Waiting for confirmation...");
+    debugLog.log("✅ Transaction sent! Hash:", receipt.transactionHash);
+    
     return {
       transactionHash: receipt.transactionHash,
       success: true,
@@ -68,9 +90,19 @@ export async function mintNFT(account: any, quantity: number = 1) {
       message: error?.message,
       name: error?.name,
       code: error?.code,
+      reason: error?.reason,
       data: error?.data?.message || error?.data,
+      stack: error?.stack?.split('\n')[0],
     });
-    throw new Error(error?.message || "Transaction failed");
+    
+    // Re-throw with user-friendly message
+    if (error?.message?.includes("user rejected")) {
+      throw new Error("Transaction was rejected");
+    } else if (error?.message?.includes("insufficient funds")) {
+      throw new Error("Insufficient funds for transaction");
+    } else {
+      throw new Error(error?.message || "Transaction failed");
+    }
   }
 }
 
