@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useActiveAccount } from 'thirdweb/react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -14,7 +14,8 @@ import { CONTRACT_ADDRESS, mintNFT } from '@/lib/thirdweb-client';
 export default function MintFrame() {
   const account = useActiveAccount();
   const walletAddress = account?.address || '';
-  const { minted = 0, total = 10000, price = 0 } = useContractStats() || {};
+  const queryClient = useQueryClient();
+  const { minted, total, price } = useContractStats();
   
   const [quantity, setQuantity] = useState(1);
   const [showContractSettings, setShowContractSettings] = useState(false);
@@ -32,10 +33,15 @@ export default function MintFrame() {
     },
     onSuccess: (data) => {
       setIsMinted(true);
+      
+      // Force refresh ng contract stats immediately
+      queryClient.invalidateQueries({ queryKey: ['contract-stats'] });
+      
       toast({
         title: '✨ Mint Successful!',
         description: `Transaction: ${data.transactionHash?.slice(0, 16)}...`,
       });
+      
       setTimeout(() => {
         setQuantity(1);
         setIsMinted(false);
