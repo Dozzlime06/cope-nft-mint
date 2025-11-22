@@ -1,0 +1,55 @@
+❌ [9:28:19 PM] MUTATION ERROR "Failed to fetch contract stats"
+❌ [9:28:19 PM] ❌ ERROR in mintNFT {"message":"Failed to fetch contract stats","name":"Error","stack":"@https://cope-nft-mint-ph1gk1108-backpackpacks-projects.vercel.app/assets/index-CIpSZlOF.js:400:230193"}
+❌ [9:28:19 PM] ❌ Failed to fetch stats 404
+[9:28:19 PM] 📊 Fetching contract stats...
+[9:28:19 PM] 🚀 mintNFT called {"address":"0xa2eB6bE3bDe7e99a8E68E6252E006cEd620ff02f","quantity":1}
+❌ [9:28:19 PM] MUTATION ERROR "Failed to fetch contract stats"
+❌ [9:28:19 PM] ❌ ERROR in mintNFT {"message":"Failed to fetch contract stats","name":"Error","stack":"@https://cope-nft-mint-ph1gk1108-backpackpacks-projects.vercel.app/assets/index-CIpSZlOF.js:400:230193"}
+❌ [9:28:19 PM] ❌ Failed to fetch stats 404
+[9:28:19 PM] 📊 Fetching contract stats...
+[9:28:19 PM] 🚀 mintNFT called {"address":"0xa2eB6bE3bDe7e99a8E68E6252E006cEd620ff02f","quantity":1}
+❌ [9:28:19 PM] MUTATION ERROR "Failed to fetch contract stats"
+❌ [9:28:19 PM] ❌ ERROR in mintNFT {"message":"Failed to fetch contract stats","name":"Error","stack":"@https://cope-nft-mint-ph1gk1108-backpackpacks-projects.vercel.app/assets/index-CIpSZlOF.js:400:230193"}
+❌ [9:28:19 PM] ❌ Failed to fetch stats 404
+[9:28:19 PM] 📊 Fetching contract stats...
+[9:28:19 PM] 🚀 mintNFT called {"address":"0xa2eB6bE3bDe7e99a8E68E6252E006cEd620ff02f","quantity":1}
+❌ [9:28:19 PM] MUTATION ERROR "Failed to fetch contract stats"
+❌ [9:28:19 PM] ❌ ERROR in mintNFT {"message":"Failed to fetch contract stats","name":"Error","stack":"@https://cope-nft-mint-ph1gk1108-backpackpacks-projects.vercel.app/assets/index-CIpSZlOF.js:400:230193"}
+❌ [9:28:19 PM] ❌ Failed to fetch stats 404
+[9:28:19 PM] 📊 Fetching contract stats...
+[9:28:19 PM] 🚀 mintNFT called {"address":"0xa2eB6bE3bDe7e99a8E68E6252E006cEd620ff02f","quantity":1}
+❌ [9:28:19 PM] MUTATION ERROR "Failed to fetch contract stats"
+❌ [9:28:19 PM] ❌ ERROR in mintNFT {"message":"Failed to fetch contract stats","name":"Error","stack":"@https://cope-nft-mint-ph1gk1108-backpackpacks-projects.vercel.app/assets/index-CIpSZlOF.js:400:230193"}
+❌ [9:28:19 PM] ❌ Failed to fetch stats 404
+[9:28:19 PM] 📊 Fetching contract stats...
+[9:28:19 PM] 🚀 mintNFT called {"address":"0xa2eB6bE3bDe7e99a8E68E6252E006cEd620ff02f","quantity":1}
+❌ [9:28:18 PM] MUTATION ERROR "Failed to fetch contract stats"
+❌ [9:28:18 PM] ❌ ERROR in mintNFT {"message":"Failed to fetch contract stats","name":"Error","stack":"@https://cope-nft-mint-ph1gk1108-backpackpacks-projects.vercel.app/assets/index-CIpSZlOF.js:400:230193"}
+❌ [9:28:18 PM] ❌ Failed to fetch stats 404
+[9:28:18 PM] 📊 Fetching contract stats...
+[9:28:18 PM] 🚀 mintNFT called {"address":"0xa2eB6bE3bDe7e99a8E68E6252E006cEd620ff02f","quantity":1}
+❌ [9:28:18 PM] MUTATION ERROR "Failed to fetch contract stats"
+❌ [9:28:18 PM] ❌ ERROR in mintNFT {"message":"Failed to fetch contract stats","name":"Error","stack":"@https://cope-nft-mint-ph1gk1108-backpackpacks-projects.vercel.app/assets/index-CIpSZlOF.js:400:230193"}
+❌ [9:28:18 PM] ❌ Failed to fetch stats 404
+[9:28:18 PM] 📊 Fetching contract stats...
+[9:28:18 PM] 🚀 mintNFT called {"address":"0xa2eB6bE3bDe7e99a8E68E6252E006cEd620ff02f","quantity":1}
+❌ [9:28:18 PM] MUTATION ERROR "Failed to fetch contract stats"
+❌ [9:28:18 PM] ❌ ERROR in mintNFT {"message":"Failed to fetch contract stats","name":"Error","stack":"@https://cope-nft-mint-ph1gk1108-backpackpacks-projects.vercel.app/assets/index-CIpSZlOF.js:400:230193"}
+❌ [9:28:18 PM] ❌ Failed to fetch stats 404
+[9:28:18 PM] 📊 Fetching contract stats...
+[9:28:18 PM] 🚀 mintNFT called {"address":"0xa2eB6bE3bDe7e99a8E68E6252E006cEd620ff02f","quantity":1}
+❌ [9:28:16 PM] MUTATION ERROR "Failed to fetch contract stats"
+❌ [9:28:16 PM] ❌ ERROR in mintNFT {"message":"Failed to fetch contract stats","name":"Error","stack":"@https://cope-nft-mint-ph1gk1108-backpackpacks-projects.vercel.app/assets/index-CIpSZlOF.js:400:230193"}
+❌ [9:28:16 PM] ❌ Failed to fetch stats 404
+[9:28:16 PM] 📊 Fetching contract stats...
+[9:28:16 PM] 🚀 mintNFT called {"address":"0xa2eB6bE3bDe7e99a8E68E6252E006cEd620ff02f","quantity":1}
+❌ [9:28:15 PM] MUTATION ERROR "Failed to fetch contract stats"
+❌ [9:28:15 PM] ❌ ERROR in mintNFT {"message":"Failed to fetch contract stats","name":"Error","stack":"@https://cope-nft-mint-ph1gk1108-backpackpacks-projects.vercel.app/assets/index-CIpSZlOF.js:400:230193"}
+❌ [9:28:15 PM] ❌ Failed to fetch stats 404
+[9:28:15 PM] 📊 Fetching contract stats...
+[9:28:15 PM] 🚀 mintNFT called {"address":"0xa2eB6bE3bDe7e99a8E68E6252E006cEd620ff02f","quantity":1}
+❌ [9:28:15 PM] MUTATION ERROR "Failed to fetch contract stats"
+❌ [9:28:15 PM] ❌ ERROR in mintNFT {"message":"Failed to fetch contract stats","name":"Error","stack":"@https://cope-nft-mint-ph1gk1108-backpackpacks-projects.vercel.app/assets/index-CIpSZlOF.js:400:230193"}
+❌ [9:28:15 PM] ❌ Failed to fetch stats 404
+[9:28:15 PM] 📊 Fetching contract stats...
+[9:28:15 PM] 🚀 mintNFT called {"address":"0xa2eB6bE3bDe7e99a8E68E6252E006cEd620ff02f","quantity":1}
