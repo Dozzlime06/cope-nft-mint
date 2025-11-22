@@ -1,0 +1,256 @@
+// client/src/lib/thirdweb-client.ts
+import { createThirdwebClient, getContract, prepareContractCall, sendTransaction, readContract } from 'thirdweb';
+import { base } from 'thirdweb/chains';
+
+export const client = createThirdwebClient({
+  clientId: import.meta.env.VITE_THIRDWEB_CLIENT_ID || '',
+});
+
+export const chain = base;
+export const CONTRACT_ADDRESS = '0xC69D12003f1f1c14874445818330066877A5A49e';
+
+export function getContractInstance() {
+  if (!CONTRACT_ADDRESS) return null;
+  return getContract({
+    client,
+    chain,
+    address: CONTRACT_ADDRESS,
+  });
+}
+
+/**
+ * Get active claim condition for a token ID
+ */
+export async function getClaimCondition(tokenId: number = 0) {
+  const contract = getContractInstance();
+  if (!contract) throw new Error('Contract unavailable');
+
+  try {
+    // Get active condition ID
+    const conditionId = await readContract({
+      contract,
+      method: 'function getActiveClaimConditionId(uint256 _tokenId) view returns (uint256)',
+      params: [BigInt(tokenId)],
+    });
+
+    // Get the actual condition details
+    const condition = await readContract({
+      contract,
+      method: 'function getClaimConditionById(uint256 _tokenId, uint256 _conditionId) view returns (tuple(uint256 startTimestamp, uint256 maxClaimableSupply, uint256 supplyClaimed, uint256 quantityLimitPerWallet, bytes32 merkleRoot, uint256 pricePerToken, address currency, string metadata))',
+      params: [BigInt(tokenId), conditionId],
+    });
+
+    return {
+      conditionId,
+      startTimestamp: condition.startTimestamp,
+      maxClaimableSupply: condition.maxClaimableSupply,
+      supplyClaimed: condition.supplyClaimed,
+      quantityLimitPerWallet: condition.quantityLimitPerWallet,
+      merkleRoot: condition.merkleRoot,
+      pricePerToken: condition.pricePerToken,
+      currency: condition.currency,
+      metadata: condition.metadata,
+    };
+  } catch (error) {
+    console.error('Error getting claim condition:', error);
+    throw error;
+  }
+}
+
+/**
+ * Get total supply for a token ID
+ */
+export async function getTotalSupply(tokenId: number = 0) {
+  const contract = getContractInstance();
+  if (!contract) throw new Error('Contract unavailable');
+
+  try {
+    const supply = await readContract({
+      contract,
+      method: 'function totalSupply(uint256) view returns (uint256)',
+      params: [BigInt(tokenId)],
+    });
+
+    return supply;
+  } catch (error) {
+    console.error('Error getting total supply:', error);
+    return BigInt(0);
+  }
+}
+
+/**
+ * Get max total supply for a token ID
+ */
+export async function getMaxTotalSupply(tokenId: number = 0) {
+  const contract = getContractInstance();
+  if (!contract) throw new Error('Contract unavailable');
+
+  try {
+    const maxSupply = await readContract({
+      contract,
+      method: 'function maxTotalSupply(uint256) view returns (uint256)',
+      params: [BigInt(tokenId)],
+    });
+
+    return maxSupply;
+  } catch (error) {
+    console.error('Error getting max supply:', error);
+    return BigInt(0);
+  }
+}
+
+/**
+ * Get comprehensive contract stats
+ */
+export async function getContractStats(tokenId: number = 0) {
+  try {
+    const [claimCondition, totalSupply, maxSupply] = await Promise.all([
+      getClaimCondition(tokenId),
+      getTotalSupply(tokenId),
+      getMaxTotalSupply(tokenId),
+    ]);
+
+    const priceInEth = Number(claimCondition.pricePerToken) / 1e18;
+    const minted = Number(totalSupply);
+    const total = Number(maxSupply);
+
+    console.log('📊 Contract Stats:', {
+      pricePerToken: claimCondition.pricePerToken.toString(),
+      priceInEth,
+      currency: claimCondition.currency,
+      minted,
+      total,
+      available: total - minted,
+    });
+
+    return {
+      pricePerToken: claimCondition.pricePerToken, // Keep as BigInt
+      priceInEth, // For display
+      currency: claimCondition.currency,
+      minted,
+      total,
+      available: total - minted,
+      claimCondition,
+    };
+  } catch (error) {
+    console.error('Error getting contract stats:', error);
+    throw error;
+  }
+}
+
+/**
+ * Mint NFT with proper price handling
+ */
+export async function mintNFT(account: any, quantity: number = 1, tokenId: number = 0) {
+  if (!account) throw new Error('Wallet not connected');
+
+  try {
+    console.log(`🚀 Minting ${quantity} NFT(s) to ${account.address}`);
+    
+    // Get fresh stats from contract
+    const stats = await getContractStats(tokenId);
+    const pricePerTokenWei = stats.pricePerToken;
+    const currency = stats.currency;
+    
+    console.log(`💰 Price per NFT: ${stats.priceInEth} ETH`);
+    console.log(`💰 Currency: ${currency}`);
+    
+    const totalValueWei = pricePerTokenWei * BigInt(quantity);
+    console.log(`💸 Total value: ${totalValueWei} wei = ${stats.priceInEth * quantity} ETH`);
+
+    const contract = getContractInstance();
+    if (!contract) throw new Error('Contract unavailable');
+
+    console.log(`📍 Contract: ${CONTRACT_ADDRESS}`);
+    console.log(`📤 Preparing claim transaction...`);
+
+    // Native ETH address
+    const NATIVE_TOKEN = '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee';
+
+    const tx = prepareContractCall({
+      contract,
+      method: 'function claim(address _receiver, uint256 _tokenId, uint256 _quantity, address _currency, uint256 _pricePerToken, (bytes32[] proof, uint256 quantityLimitPerWallet, uint256 pricePerToken, address currency) _allowlistProof, bytes _data) payable',
+      params: [
+        account.address, // receiver
+        BigInt(tokenId), // tokenId
+        BigInt(quantity), // quantity
+        currency, // currency (from contract)
+        pricePerTokenWei, // pricePerToken (from contract)
+        {
+          proof: [], // empty proof for public mint
+          quantityLimitPerWallet: BigInt('0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'), // max uint256
+          pricePerToken: pricePerTokenWei, // MUST MATCH the pricePerToken parameter!
+          currency: currency, // MUST MATCH the currency parameter!
+        },
+        '0x', // empty data
+      ],
+      value: totalValueWei, // Send ETH if minting with native token
+    });
+
+    console.log('✅ Transaction prepared');
+    console.log('🔐 Sending to wallet...');
+
+    const result = await sendTransaction({
+      account,
+      transaction: tx,
+    });
+
+    console.log('✅ SUCCESS!');
+    console.log('🔗 Hash:', result.transactionHash);
+
+    return {
+      transactionHash: result.transactionHash || 'pending',
+      success: true,
+    };
+  } catch (error: any) {
+    console.error('❌ MINT FAILED');
+    console.error('Message:', error?.message);
+    console.error('Error:', error);
+    throw error;
+  }
+}
+
+/**
+ * Verify if a claim would succeed (dry run)
+ */
+export async function verifyClaim(
+  account: any,
+  quantity: number = 1,
+  tokenId: number = 0
+) {
+  const contract = getContractInstance();
+  if (!contract) throw new Error('Contract unavailable');
+
+  try {
+    const stats = await getContractStats(tokenId);
+    const conditionId = await readContract({
+      contract,
+      method: 'function getActiveClaimConditionId(uint256 _tokenId) view returns (uint256)',
+      params: [BigInt(tokenId)],
+    });
+
+    const isValid = await readContract({
+      contract,
+      method: 'function verifyClaim(uint256 _conditionId, address _claimer, uint256 _tokenId, uint256 _quantity, address _currency, uint256 _pricePerToken, (bytes32[] proof, uint256 quantityLimitPerWallet, uint256 pricePerToken, address currency) _allowlistProof) view returns (bool)',
+      params: [
+        conditionId,
+        account.address,
+        BigInt(tokenId),
+        BigInt(quantity),
+        stats.currency,
+        stats.pricePerToken,
+        {
+          proof: [],
+          quantityLimitPerWallet: BigInt('0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'),
+          pricePerToken: stats.pricePerToken,
+          currency: stats.currency,
+        },
+      ],
+    });
+
+    return isValid;
+  } catch (error) {
+    console.error('Error verifying claim:', error);
+    return false;
+  }
+}
