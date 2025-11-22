@@ -1,0 +1,23 @@
+21:13:54.408 Running build in Washington, D.C., USA (East) – iad1
+21:13:54.409 Build machine configuration: 2 cores, 8 GB
+21:13:54.554 Cloning github.com/Dozzlime06/cope-nft-mint (Branch: main, Commit: 1d3dd4b)
+21:13:54.555 Previous build caches not available.
+21:13:55.504 Cloning completed: 950.000ms
+21:13:55.979 Running "vercel build"
+21:13:56.488 Vercel CLI 48.10.5
+21:13:57.266 Installing dependencies...
+21:14:07.205 npm warn deprecated @esbuild-kit/esm-loader@2.6.5: Merged into tsx: https://tsx.is
+21:14:07.273 npm warn deprecated @esbuild-kit/core-utils@3.3.2: Merged into tsx: https://tsx.is
+21:14:07.380 npm warn deprecated @paulmillr/qr@0.2.1: The package is now available as "qr": npm install qr
+21:14:07.595 npm warn deprecated @hey-api/client-fetch@0.10.0: Starting with v0.73.0, this package is bundled directly inside @hey-api/openapi-ts.
+21:14:13.593 npm warn deprecated @walletconnect/sign-client@2.21.8: Reliability and performance improvements. See: https://github.com/WalletConnect/walletconnect-monorepo/releases
+21:14:14.041 npm warn deprecated @walletconnect/universal-provider@2.21.8: Reliability and performance improvements. See: https://github.com/WalletConnect/walletconnect-monorepo/releases
+21:14:14.463 npm warn deprecated @walletconnect/sign-client@2.21.1: Reliability and performance improvements. See: https://github.com/WalletConnect/walletconnect-monorepo/releases
+21:14:14.591 npm warn deprecated @walletconnect/sign-client@2.21.0: Reliability and performance improvements. See: https://github.com/WalletConnect/walletconnect-monorepo/releases
+21:14:14.645 npm warn deprecated @walletconnect/sign-client@2.21.0: Reliability and performance improvements. See: https://github.com/WalletConnect/walletconnect-monorepo/releases
+21:14:14.670 npm warn deprecated @walletconnect/sign-client@2.21.0: Reliability and performance improvements. See: https://github.com/WalletConnect/walletconnect-monorepo/releases
+21:14:14.817 npm warn deprecated @walletconnect/universal-provider@2.21.1: Reliability and performance improvements. See: https://github.com/WalletConnect/walletconnect-monorepo/releases
+21:14:14.985 npm warn deprecated @walletconnect/universal-provider@2.21.0: Reliability and performance improvements. See: https://github.com/WalletConnect/walletconnect-monorepo/releases
+21:14:15.022 npm warn deprecated @walletconnect/universal-provider@2.21.0: Reliability and performance improvements. See: https://github.com/WalletConnect/walletconnect-monorepo/releases
+21:14:15.023 npm warn deprecated @walletconnect/universal-provider@2.21.0: Reliability and performance improvements. See: https://github.com/WalletConnect/walletconnect-monorepo/releases
+21:14:16.159 npm warn deprecated @walletconnect/ethereum-provider@2.21.1: Reliability and performance improvements. See: https://github.com/WalletConnect/walletconnect-monorepo/releases
