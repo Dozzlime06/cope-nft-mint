@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useMutation } from '@tanstack/react-query';
 import { useActiveAccount } from 'thirdweb/react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -8,9 +8,8 @@ import { Header } from '@/components/Header';
 import { ProgressBar } from '@/components/ProgressBar';
 import { useToast } from '@/hooks/use-toast';
 import { useContractStats } from '@/hooks/use-contract-stats';
-import { ShoppingCart, Settings, Lock, Check, Download, FileJson, Image as ImageIcon, X } from 'lucide-react';
+import { ShoppingCart, Settings, Check } from 'lucide-react';
 import { CONTRACT_ADDRESS, mintNFT } from '@/lib/thirdweb-client';
-import { debugLog } from '@/lib/debug-logger';
 
 export default function MintFrame() {
   const account = useActiveAccount();
@@ -22,16 +21,7 @@ export default function MintFrame() {
   const [contractAddress, setContractAddress] = useState(CONTRACT_ADDRESS);
   const [metadataUri, setMetadataUri] = useState('');
   const [isMinted, setIsMinted] = useState(false);
-  const [showLogs, setShowLogs] = useState(false);
-  const [logs, setLogs] = useState<string[]>([]);
   const { toast } = useToast();
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setLogs(debugLog.getLogs());
-    }, 100);
-    return () => clearInterval(interval);
-  }, []);
 
   const mintMutation = useMutation({
     mutationFn: async () => {
@@ -53,7 +43,6 @@ export default function MintFrame() {
     },
     onError: (error) => {
       const errorMessage = error instanceof Error ? error.message : (typeof error === 'string' ? error : JSON.stringify(error));
-      debugLog.error('MUTATION ERROR', errorMessage);
       toast({
         title: '❌ Minting Failed',
         description: errorMessage.substring(0, 150),
@@ -85,32 +74,6 @@ export default function MintFrame() {
   return (
     <>
       <Header />
-      
-      {/* Debug Logs - Sticky at Top */}
-      {logs.length > 0 && (
-        <div className="fixed top-20 left-4 right-4 max-w-sm bg-slate-950 border-2 border-violet-500 rounded-lg p-3 z-50 shadow-2xl">
-          <div className="flex justify-between items-center mb-2">
-            <p className="text-xs font-bold text-violet-400">Debug Logs ({logs.length})</p>
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={() => setShowLogs(!showLogs)}
-              className="h-4 w-4"
-            >
-              <X className="w-3 h-3" />
-            </Button>
-          </div>
-          {showLogs !== false && (
-            <div className="max-h-32 overflow-y-auto space-y-0">
-              {logs.map((log, idx) => (
-                <p key={idx} className="text-xs font-mono text-lime-400 break-words">
-                  {log}
-                </p>
-              ))}
-            </div>
-          )}
-        </div>
-      )}
       
       <div className="min-h-screen bg-slate-950 text-white pt-32 pb-12 px-4 flex flex-col items-center justify-start relative">
         {/* Animated background elements */}
@@ -182,7 +145,7 @@ export default function MintFrame() {
                 </div>
               )}
 
-              {/* Quantity Input - Always Visible */}
+              {/* Quantity Input */}
               <div className="space-y-3 slide-up">
                 <label className="text-sm font-semibold text-white">
                   Quantity
@@ -221,7 +184,7 @@ export default function MintFrame() {
                 </p>
               </div>
 
-              {/* Price Info - Always Visible */}
+              {/* Price Info */}
               <div className="bg-slate-800/30 rounded-xl p-5 border border-violet-500/30 space-y-3">
                 <div className="flex justify-between items-center">
                   <span className="text-slate-300 font-medium">Price per NFT</span>
@@ -235,7 +198,6 @@ export default function MintFrame() {
                   </span>
                 </div>
               </div>
-
 
               {/* Mint Button */}
               <Button
