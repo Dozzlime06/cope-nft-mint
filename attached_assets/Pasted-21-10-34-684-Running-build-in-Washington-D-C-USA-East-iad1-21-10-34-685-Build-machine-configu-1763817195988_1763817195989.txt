@@ -1,0 +1,50 @@
+21:10:34.684 Running build in Washington, D.C., USA (East) – iad1
+21:10:34.685 Build machine configuration: 2 cores, 8 GB
+21:10:34.813 Cloning github.com/Dozzlime06/cope-nft-mint (Branch: main, Commit: 1873b29)
+21:10:34.813 Previous build caches not available.
+21:10:35.747 Cloning completed: 933.000ms
+21:10:36.164 Running "vercel build"
+21:10:36.554 Vercel CLI 48.10.5
+21:10:37.307 Installing dependencies...
+21:10:47.351 npm warn deprecated @esbuild-kit/esm-loader@2.6.5: Merged into tsx: https://tsx.is
+21:10:47.435 npm warn deprecated @esbuild-kit/core-utils@3.3.2: Merged into tsx: https://tsx.is
+21:10:47.539 npm warn deprecated @paulmillr/qr@0.2.1: The package is now available as "qr": npm install qr
+21:10:48.238 npm warn deprecated @hey-api/client-fetch@0.10.0: Starting with v0.73.0, this package is bundled directly inside @hey-api/openapi-ts.
+21:10:53.982 npm warn deprecated @walletconnect/sign-client@2.21.8: Reliability and performance improvements. See: https://github.com/WalletConnect/walletconnect-monorepo/releases
+21:10:54.346 npm warn deprecated @walletconnect/universal-provider@2.21.8: Reliability and performance improvements. See: https://github.com/WalletConnect/walletconnect-monorepo/releases
+21:10:54.798 npm warn deprecated @walletconnect/sign-client@2.21.1: Reliability and performance improvements. See: https://github.com/WalletConnect/walletconnect-monorepo/releases
+21:10:54.931 npm warn deprecated @walletconnect/sign-client@2.21.0: Reliability and performance improvements. See: https://github.com/WalletConnect/walletconnect-monorepo/releases
+21:10:54.998 npm warn deprecated @walletconnect/sign-client@2.21.0: Reliability and performance improvements. See: https://github.com/WalletConnect/walletconnect-monorepo/releases
+21:10:55.023 npm warn deprecated @walletconnect/sign-client@2.21.0: Reliability and performance improvements. See: https://github.com/WalletConnect/walletconnect-monorepo/releases
+21:10:55.142 npm warn deprecated @walletconnect/universal-provider@2.21.1: Reliability and performance improvements. See: https://github.com/WalletConnect/walletconnect-monorepo/releases
+21:10:55.282 npm warn deprecated @walletconnect/universal-provider@2.21.0: Reliability and performance improvements. See: https://github.com/WalletConnect/walletconnect-monorepo/releases
+21:10:55.323 npm warn deprecated @walletconnect/universal-provider@2.21.0: Reliability and performance improvements. See: https://github.com/WalletConnect/walletconnect-monorepo/releases
+21:10:55.324 npm warn deprecated @walletconnect/universal-provider@2.21.0: Reliability and performance improvements. See: https://github.com/WalletConnect/walletconnect-monorepo/releases
+21:10:56.193 npm warn deprecated @walletconnect/ethereum-provider@2.21.1: Reliability and performance improvements. See: https://github.com/WalletConnect/walletconnect-monorepo/releases
+21:12:16.042 
+21:12:16.044 added 1297 packages in 2m
+21:12:16.044 
+21:12:16.045 211 packages are looking for funding
+21:12:16.045   run `npm fund` for details
+21:12:16.249 
+21:12:16.249 > rest-express@1.0.0 build
+21:12:16.250 > vite build && esbuild server/index.ts --platform=node --packages=external --bundle --format=esm --outdir=dist
+21:12:16.250 
+21:12:16.522 [36mvite v5.4.20 [32mbuilding for production...[36m[39m
+21:12:16.581 transforming...
+21:12:18.093 node_modules/thirdweb/dist/esm/react/web/ui/ConnectWallet/Details.js (440:0): A comment
+21:12:18.093 
+21:12:18.094 "/* @__PURE__ */"
+21:12:18.094 
+21:12:18.094 in "node_modules/thirdweb/dist/esm/react/web/ui/ConnectWallet/Details.js" contains an annotation that Rollup cannot interpret due to the position of the comment. The comment will be removed to avoid issues.
+21:12:19.541 [32m✓[39m 1722 modules transformed.
+21:12:19.544 [31mx[39m Build failed in 3.00s
+21:12:19.544 [31merror during build:
+21:12:19.544 [31m[vite:load-fallback] Could not load /vercel/path0/client/src/lib/client (imported by client/src/lib/thirdweb-client.ts): ENOENT: no such file or directory, open '/vercel/path0/client/src/lib/client'[31m
+21:12:19.544     at async open (node:internal/fs/promises:641:25)
+21:12:19.544     at async Object.readFile (node:internal/fs/promises:1245:14)
+21:12:19.544     at async Object.load (file:///vercel/path0/node_modules/vite/dist/node/chunks/dep-D_zLpgQd.js:65356:25)
+21:12:19.544     at async PluginDriver.hookFirstAndGetPlugin (file:///vercel/path0/node_modules/rollup/dist/es/shared/node-entry.js:20689:28)
+21:12:19.545     at async file:///vercel/path0/node_modules/rollup/dist/es/shared/node-entry.js:19809:33
+21:12:19.545     at async Queue.work (file:///vercel/path0/node_modules/rollup/dist/es/shared/node-entry.js:20899:32)[39m
+21:12:19.580 Error: Command "npm run build" exited with 1
